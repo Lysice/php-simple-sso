@@ -73,7 +73,7 @@ abstract class SSOServer implements SSOServerInterface
                 $this->fail('User authentication failed.', false, Constants::CODE_AUTH_FAILED);
             }
         } catch (SSOServerException $e) {
-            return $this->returnJson(['error' => $e->getMessage()]);
+            return $this->returnJson(['error' => $e->getMessage(), 'code' => $e->getCode()]);
         }
 
         $this->setSessionData('sso_user', $username);
@@ -92,10 +92,10 @@ abstract class SSOServer implements SSOServerInterface
             $this->startBrokerSession();
             $this->setSessionData('sso_user', null);
         } catch (SSOServerException $e) {
-            return $this->returnJson(['error' => $e->getMessage()]);
+            return $this->returnJson(['error' => $e->getMessage(), 'code' => $e->getCode()]);
         }
 
-        return $this->returnJson(['success' => 'User has been successfully logged out.']);
+        return $this->returnJson(['success' => 'User has been successfully logged out.', 'code' => 200]);
     }
 
     /**
@@ -119,7 +119,7 @@ abstract class SSOServer implements SSOServerInterface
                 $this->fail('User not found.', false, Constants::CODE_USER_NOT_FOUND);
             }
         } catch (SSOServerException $e) {
-            return $this->returnJson(['error' => $e->getMessage()]);
+            return $this->returnJson(['error' => $e->getMessage(), 'code' => $e->getMessage()]);
         }
 
         return $this->returnUserInfo($user);
