@@ -61,4 +61,9 @@ class Constants {
      * Provided broker does not exist
      */
     const CODE_BROKER_NOT_EXIST = 1012;
+
+    /**
+     * Provided Password does't match
+     */
+    const CODE_PASSWORD_ERROR = 1013;
 }
